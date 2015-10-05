@@ -8,7 +8,7 @@
 	<author href="http://www.ashesi.edu.gh" email="norvorjude@gmail.com">
 		J Norvor
 	</author>
-	<access origin="http://cs.ashesi..edu.gh";
+	<access origin="http://cs.ashesi.edu.gh";
 	<icon src="icon.png"/>
 	<gap:splash src="splash.png"/>
 </widget>
