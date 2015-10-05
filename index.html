@@ -1,0 +1,157 @@
+	<!DOCTYPE html>
+	<html>
+	<head>
+
+		<link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css">
+		<link rel="stylesheet" href="themes//MWC.min.css" />
+		<link rel="stylesheet" href="themes/MWC.css" />
+<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+		<script src="jquery/jquery-2.1.3.js"></script>
+		<script src="jquery/jquery.mobile-1.4.5.min.js"></script>
+		<script>
+		$.support.cors=true;
+		var phonegap="http://cs.ashesi.edu.gh/~csashesi/class2016/jude-norvor/MobileWeb/"
+			function sendRequest(u){
+					// Send request to server
+					//u a url as a string
+					//async is type of request
+					// alert(u);
+					var obj=$.ajax({url:u,async:false});
+					// alert(obj);
+					// alert("hola");
+					//Convert the JSON string to object
+					var result=$.parseJSON(obj.responseText);
+					// alert(result);
+					return result;//return object
+
+				}
+function ClearFields() {
+
+     // document.getElementById("mtrcde").value = "";
+     // document.getElementById("mtrreading").value = "";
+      // document.getElementById("#dteread").value = "";
+       document.getElementById("forms").reset();
+}
+	// $("#btnSave").click(
+		function save(){
+			// alert("i was clicked");
+			var code= $("#mtrcde").val();
+			var reading= $("#mtrreading").val();
+			var dats= $("#dteread").val();
+			var tme= $("#tmeread").val();
+			var theUrl=phonegap+"controller.php?cmd=3&meter="+code+"&read="+reading+"&date="+dats+"&time="+tme;
+			// alert(theUrl);
+
+			var obj=sendRequest(theUrl);
+				ClearFields();
+		}
+
+$('#btnSave'         ).click(function(){
+alert("iwas clicked");
+});
+
+function remove(){
+// 				while($("#temp tr").length>1){
+// 					document.all.temp.deleteRow(1);
+// 				}
+				// Get the <ul> element with id="myList"
+var list = document.getElementById("sort");
+
+// If the <ul> element has any child nodes, remove its first child node
+// if (list.hasChildNodes()) {
+		while(list.hasChildNodes()){
+    list.removeChild(list.childNodes[0]);
+    //alert("hello");
+}
+			}
+
+function populate(){
+	// alert
+	var theUrl=phonegap+"controller.php?cmd=2"
+	var ul = document.getElementById("sort");
+
+ //  li.appendChild(document.createTextNode("Element 4"));
+ var obj=sendRequest(theUrl);
+ // alert("send request");
+ remove();
+ for(i=0;i<obj.list.length;i++){
+ 	var li = document.createElement("li");
+ 	li.innerHTML = "Meter: "+obj.list[i]["meter_code"]+" Meter Reading: "+obj.list[i]["meter_reading"]+" Date: "+obj.list[i]["dates"]+" Time: "+obj.list[i]["times"];
+ 	// li.innerHTML = "Meter Reading: "+obj.list[i]["dates"];
+
+ 	// li.style.add("list-style-type", "circle");
+ 	ul.appendChild(li);
+
+ }
+
+}
+
+// $('body').append(str);
+	// function saveRequest(){
+
+
+	</script>
+</head>
+
+<body>
+	<div data-role="page" id="pageone">
+		<div data-role="header">
+		<a href="#pageone" data-role="button">Home</a>
+			<h1>Mobile Web 1<h1>
+
+				<div data-role="navbar">
+				<ul>
+					<li><a href="#pageone" data-icon="home" data-role="button" data-transition="pop">Home</a></li>
+					<li><a href="#pagetwo" data-icon="bars" data-role="button" data-role="header" data-transition="fade" onclick="populate()">Display</a></li>
+					</ul>
+				</div>
+			</div>
+		<div data-role="collapsible">
+			<h1>Click me - To Enter Meter Information</h1>
+
+			<form method="post" action="#pageone" id="forms">
+				<div data-role="fieldcontain">
+					<label for="mtr">Meter:</label>
+					<input type="text" name="mtrcde" id="mtrcde">
+					<label for="mtrread">Meter Reading:</label>
+					<input type="text" name="mtrreading" id="mtrreading">
+					<label for="mtrread">Date:</label>
+					<input type="date" name="dteread" id="dteread">
+					<label for="mtrread">Time:</label>
+					<input type="time" name="tmeread" id="tmeread">
+					<input type="button" name="tmeread" id="tmeread" onclick="save()"value="Save">
+
+				</div>
+
+			</form>
+				<!-- <a href="#" data-role="button" id="btnSave" onclick="save()">Save</a> -->
+</div>
+			<div data-role="footer">
+				<h1>Rights Reserved</h1>
+			</div>
+		</div>
+
+		<div data-role="page" id="pagetwo" data-theme= "c" >
+			<div data-role="header">
+			<a href="#pageone" data-role="button">Home</a>
+				<h1>Mobile Web 1<h1>
+					<div data-role="navbar">
+					<ul>
+						<li><a href="#pageone" data-icon="home"data-role="button"data-transition="pop">Home</a></li>
+						<li><a href="#pagetwo" data-icon="bars" data-role="button" data-role="header" data-transition="fade" >Display</a></li>
+						</ul>
+					</div>
+				</div>
+				<ul data-role="listview" id="sort" >
+					<!-- data-role="list-divider" -->
+			<!-- <li>Europe</li> -->
+			<!-- <li>Norway</li>
+			<li>Germany</li> -->
+		</ul>
+		<div data-role="footer">
+			<h1>Rights Reserved</h1>
+		</div>
+		</div>
+		</body>
+	</body>
+	</html>
